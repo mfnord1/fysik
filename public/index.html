@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fysik Eksamen – din personlige læsemakker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">⌬</span>
+      <span class="brand-name">Fysik<em>Eksamen</em></span>
+    </div>
+    <nav class="nav">
+      <button class="nav-btn active" data-view="home">Forside</button>
+      <button class="nav-btn" data-view="plan">Læseplan</button>
+      <button class="nav-btn" data-view="quiz">Quiz</button>
+      <button class="nav-btn" data-view="flash">Flashcards</button>
+      <button class="nav-btn" data-view="tutor">AI-tutor</button>
+      <button class="nav-btn" data-view="noter">Mine noter</button>
+    </nav>
+  </header>
+
+  <main id="app">
+    <!-- HOME -->
+    <section class="view active" id="view-home">
+      <div class="hero">
+        <p class="eyebrow">Eksamensforberedelse · særligt til fysik</p>
+        <h1>Læs op til <span class="hl">fysik&shy;eksamen</span> uden at drukne i noter.</h1>
+        <p class="lede">Sæt din eksamensdato, vælg dine emner, og få en personlig læseplan med quizzer, flashcards og en tutor. Spørgsmålene <strong>varierer hver gang</strong>, så det aldrig bliver ren udenadslære.</p>
+        <div class="hero-cta">
+          <button class="btn primary" data-view="plan">Lav min læseplan</button>
+          <button class="btn ghost" data-view="quiz">Spring til en quiz</button>
+        </div>
+        <div class="stat-row" id="statRow">
+          <div class="stat"><span class="num" id="statSolved">0</span><span class="lbl">besvarede spørgsmål</span></div>
+          <div class="stat"><span class="num" id="statAcc">–</span><span class="lbl">rigtige</span></div>
+          <div class="stat"><span class="num" id="statStreak">0</span><span class="lbl">dages streak</span></div>
+        </div>
+      </div>
+
+      <div class="features">
+        <article class="feature">
+          <span class="f-ico">📈</span>
+          <h3>Personlig læseplan</h3>
+          <p>Vælg dato og emner, så fordeler vi pensum på dagene frem til eksamen.</p>
+        </article>
+        <article class="feature">
+          <span class="f-ico">🔀</span>
+          <h3>Spørgsmål der varierer</h3>
+          <p>Tal og rækkefølge genereres på ny hver gang, så du forstår frem for at huske.</p>
+        </article>
+        <article class="feature">
+          <span class="f-ico">🗂️</span>
+          <h3>Flashcards & formler</h3>
+          <p>Alle de centrale fysikformler samlet ét sted, klar til repetition.</p>
+        </article>
+        <article class="feature">
+          <span class="f-ico">💬</span>
+          <h3>AI-tutor</h3>
+          <p>Spørg om et begreb eller en formel og få en kort, klar forklaring.</p>
+        </article>
+        <article class="feature">
+          <span class="f-ico">📄</span>
+          <h3>Upload dine noter</h3>
+          <p>Upload en PDF med dine egne noter, og få quizspørgsmål og flashcards lavet direkte fra dem.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PLAN -->
+    <section class="view" id="view-plan">
+      <h2 class="view-title">Din læseplan</h2>
+      <div class="card setup">
+        <div class="field">
+          <label>Eksamensdato</label>
+          <input type="date" id="examDate" />
+        </div>
+        <div class="field">
+          <label>Emner du vil træne</label>
+          <div class="chips" id="topicChips"></div>
+        </div>
+        <button class="btn primary" id="makePlan">Byg læseplan</button>
+      </div>
+      <div id="planOut" class="plan-out"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="view" id="view-quiz">
+      <h2 class="view-title">Quiz & øvelser</h2>
+      <div class="card setup" id="quizSetup">
+        <div class="field">
+          <label>Emne</label>
+          <select id="quizTopic"><option value="alle">Alle emner</option></select>
+        </div>
+        <div class="field">
+          <label>Niveau</label>
+          <select id="quizLevel">
+            <option value="alle">Alle niveauer</option>
+            <option value="let">Let</option>
+            <option value="mellem">Mellem</option>
+            <option value="svaer">Svær</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Antal spørgsmål</label>
+          <select id="quizCount">
+            <option>5</option><option selected>10</option><option>15</option><option>20</option>
+          </select>
+        </div>
+        <button class="btn primary" id="startQuiz">Start quiz</button>
+      </div>
+      <div id="quizArea"></div>
+    </section>
+
+    <!-- FLASHCARDS -->
+    <section class="view" id="view-flash">
+      <h2 class="view-title">Flashcards</h2>
+      <div class="card setup">
+        <div class="field">
+          <label>Emne</label>
+          <select id="flashTopic"><option value="alle">Alle emner</option></select>
+        </div>
+        <button class="btn primary" id="loadFlash">Hent kort</button>
+      </div>
+      <div id="flashArea" class="flash-area"></div>
+    </section>
+
+    <!-- TUTOR -->
+    <section class="view" id="view-tutor">
+      <h2 class="view-title">AI-tutor</h2>
+      <p class="tutor-hint">Spørg fx: “forklar Ohms lov”, “hvad er kinetisk energi”, “hvordan beregner jeg effekt”.</p>
+      <div class="chat" id="chat"></div>
+      <div class="chat-input">
+        <input type="text" id="chatMsg" placeholder="Skriv dit fysikspørgsmål…" />
+        <button class="btn primary" id="sendChat">Send</button>
+      </div>
+    </section>
+    <!-- NOTER (PDF-upload) -->
+    <section class="view" id="view-noter">
+      <h2 class="view-title">Mine noter</h2>
+      <p class="tutor-hint">Upload en PDF med dine egne noter eller slides, og få AI-genererede spørgsmål eller flashcards direkte fra dem.</p>
+
+      <div class="card setup pdf-setup">
+        <div class="pdf-drop" id="pdfDrop">
+          <span class="pdf-icon">📄</span>
+          <span id="pdfLabel">Træk PDF hertil eller klik for at vælge</span>
+          <input type="file" id="pdfInput" accept="application/pdf" style="display:none" />
+        </div>
+        <div class="pdf-options">
+          <div class="field">
+            <label>Hvad vil du generere?</label>
+            <select id="pdfMode">
+              <option value="quiz">Quiz-spørgsmål (multiple choice)</option>
+              <option value="flash">Flashcards (begreber & formler)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Antal</label>
+            <select id="pdfCount">
+              <option>5</option><option selected>10</option><option>15</option><option>20</option>
+            </select>
+          </div>
+        </div>
+        <div class="pdf-key-row">
+          <div class="field" style="flex:1">
+            <label>Anthropic API-nøgle</label>
+            <input type="password" id="apiKey" placeholder="sk-ant-…" autocomplete="off" />
+          </div>
+          <p class="key-hint">Gemmes kun i din browser. Kræves for at analysere PDF.</p>
+        </div>
+        <button class="btn primary" id="analyzePdf" disabled>Analyser PDF</button>
+      </div>
+
+      <div id="pdfStatus"></div>
+      <div id="pdfOut"></div>
+    </section>
+
+  </main>
+
+  <footer class="foot">Bygget som studieværktøj · fokus på fysik · data gemmes kun i din egen browser</footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
